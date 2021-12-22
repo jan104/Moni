@@ -22,6 +22,10 @@ services:
       - prom-storage:/prometheus
     networks:
       - monitoring
+    links:
+      - node-exporter
+      - grafana
+      - blackbox-exporter
 
   node-exporter:
     image: prom/node-exporter
@@ -41,8 +45,6 @@ services:
       - 9100
     networks:
       - monitoring
-    links:
-      - prometheus
   
   grafana:
     image: grafana/grafana-oss
@@ -59,11 +61,26 @@ services:
     volumes:
       - ./datasource-prometheus.yml:/etc/grafana/provisioning/datasources/prometheus.yml:ro
     ports:
-      - "127.0.0.1:3000:3000"
+      - 127.0.0.1:3000:3000
     networks:
       - monitoring
-    links:
-      - prometheus
+  
+  blackbox-exporter:
+    image: prom/blackbox-exporter
+    container_name: blackbox-exporter
+    hostname: blackbox-exporter
+    restart: unless-stopped
+    command:
+      - --config.file=/etc/blackbox_exporter/config.yml
+      - --web.external-url=${PUBLIC_NAME}/bbox
+      - --web.route-prefix=/
+    volumes:
+      - ./blackbox-config.yml:/etc/blackbox_exporter/config.yml:ro
+    ports:
+      - 127.0.0.1:9115:9115
+    networks:
+      - monitoring
+    
 
 volumes:
   prom-storage:
@@ -71,4 +88,3 @@ volumes:
 networks:
   monitoring:
     driver: bridge
-
