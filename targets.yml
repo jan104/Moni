@@ -1,0 +1,7 @@
+- targets:
+  - 130.149.133.197
+  - 130.149.133.199:9100
+  - https://130.149.133.150:9100
+  - https://130.149.133.151
+  - https://isis.tu-berlin.de:443
+  - https://moseskonto.tu-berlin.de

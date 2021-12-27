@@ -5,7 +5,7 @@ modules:
     http:
       preferred_ip_protocol: ip4
 
-  icmp4:
+  icmp-ip4:
     prober: icmp
     icmp:
       preferred_ip_protocol: ip4
