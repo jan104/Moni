@@ -10,7 +10,7 @@ services:
       - --storage.tsdb.path=/prometheus
       - --web.console.libraries=/usr/share/prometheus/console_libraries
       - --web.console.templates=/usr/share/prometheus/consoles
-      - --web.external-url=${PUBLIC_NAME}/prometheus
+      - --web.external-url=https://prometheus.${PUBLIC_NAME}
       - --web.route-prefix=/
       - --web.config.file=/etc/prometheus/web.yml
         #- --web.listen-address=127.0.0.1:9090
@@ -53,7 +53,7 @@ services:
     hostname: grafana
     restart: unless-stopped
     environment:
-      - GF_SERVER_ROOT_URL=${PUBLIC_NAME}/grafana
+      - GF_SERVER_ROOT_URL=https://grafana.${PUBLIC_NAME}
       - GF_SERVER_SERVE_FROM_SUB_PATH=true
       - GF_ANALYTICS_REPORTING_ENABLED=false
       - GF_ANALYTICS_CHECK_FOR_UPDATES=false
@@ -73,7 +73,7 @@ services:
     restart: unless-stopped
     command:
       - --config.file=/etc/blackbox_exporter/config.yml
-      - --web.external-url=${PUBLIC_NAME}/bbox
+      - --web.external-url=https://bbox.${PUBLIC_NAME}
       - --web.route-prefix=/
     volumes:
       - ./blackbox-config.yml:/etc/blackbox_exporter/config.yml:ro
