@@ -4,6 +4,8 @@ modules:
     timeout: 15s
     http:
       preferred_ip_protocol: ip4
+      fail_if_not_ssl: true
+      valid_status_codes: [200, 401]
 
   icmp-ip4:
     prober: icmp

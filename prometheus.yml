@@ -28,23 +28,6 @@ scrape_configs:
                   "node-exporter:9100"
                  ]
 
-  - job_name: 'blackbox-http'
-    scrape_timeout: 15s
-    scrape_interval: 15s
-    metrics_path: /probe
-    params:
-      module: [http-check]
-    static_configs:
-     - targets:
-       - http://blackbox-exporter:9115
-    relabel_configs:
-     - source_labels: [__address__]
-       target_label: __param_target
-     - source_labels: [__param_target]
-       target_label: instance
-     - target_label: __address__
-       replacement: blackbox-exporter:9115
-
   - job_name: 'test'
     scrape_timeout: 15s
     scrape_interval: 15s
@@ -57,6 +40,23 @@ scrape_configs:
     relabel_configs:
       - source_labels: [__address__]
         regex: '^(?:[a-zA-Z]*://)?([^:]+)(?::[\d]*)?'
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: blackbox-exporter:9115
+
+  - job_name: 'ssl-cert'
+    scrape_interval: 1m
+    metrics_path: /probe
+    params:
+      module: [http-check]
+    static_configs:
+      - targets:
+        - https://tu.berlin
+    relabel_configs:
+      - source_labels: [__address__]
+        #regex: '^(?:[a-zA-Z]*://)?([^:]+)(?::[\d]*)?'
         target_label: __param_target
       - source_labels: [__param_target]
         target_label: instance
