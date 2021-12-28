@@ -39,7 +39,7 @@ scrape_configs:
         - /etc/prometheus/targets.yml
     relabel_configs:
       - source_labels: [__address__]
-        regex: '^(?:[a-zA-Z]*://)?([^:]+)(?::[\d]*)?'
+        regex: '^(?:[a-zA-Z]*://)?([^:]+)(?::[\d]*)?$'
         target_label: __param_target
       - source_labels: [__param_target]
         target_label: instance
