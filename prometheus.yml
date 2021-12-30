@@ -13,7 +13,7 @@ alerting:
 
 # Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
 rule_files:
-  # - "first_rules.yml"
+  - /etc/prometheus/rules.yml
   # - "second_rules.yml"
 
 # A scrape configuration containing exactly one endpoint to scrape:
@@ -47,13 +47,14 @@ scrape_configs:
         replacement: blackbox-exporter:9115
 
   - job_name: 'ssl-cert'
-    scrape_interval: 1m
+    scrape_interval: 2m
     metrics_path: /probe
     params:
       module: [http-check]
     static_configs:
       - targets:
         - https://tu.berlin
+        - https://prometheus.io
     relabel_configs:
       - source_labels: [__address__]
         #regex: '^(?:[a-zA-Z]*://)?([^:]+)(?::[\d]*)?'

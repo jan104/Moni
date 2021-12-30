@@ -20,6 +20,7 @@ services:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
       - ./web.yml:/etc/prometheus/web.yml
       - ./targets.yml:/etc/prometheus/targets.yml
+      - ./rules.yml:/etc/prometheus/rules.yml
       - prom-storage:/prometheus
     networks:
       - monitoring

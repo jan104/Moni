@@ -1,0 +1,10 @@
+groups:
+  - name: ssl-expiry-rule
+    rules:
+      - alert: SSLCertExpiringSoon
+        expr: probe_ssl_earliest_cert_expiry{job="ssl-cert"} - time() < 86400 * 300
+        for: 1m
+        labels:
+          severity: "warning"
+        annotations:
+          description: SSL Certificate for {{ $labels.instance }} expires in {{ .Value | humanizeDuration }}
