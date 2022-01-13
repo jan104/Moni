@@ -46,20 +46,20 @@ scrape_configs:
       - target_label: __address__
         replacement: blackbox-exporter:9115
 
-  - job_name: 'ssl-cert'
-    scrape_interval: 2m
-    metrics_path: /probe
-    params:
-      module: [http-check]
-    static_configs:
-      - targets:
-        - https://tu.berlin
-        - https://prometheus.io
-    relabel_configs:
-      - source_labels: [__address__]
-        #regex: '^(?:[a-zA-Z]*://)?([^:]+)(?::[\d]*)?'
-        target_label: __param_target
-      - source_labels: [__param_target]
-        target_label: instance
-      - target_label: __address__
-        replacement: blackbox-exporter:9115
+          #- job_name: 'ssl-cert'
+          #  scrape_interval: 2m
+          #  metrics_path: /probe
+          #  params:
+          #    module: [http-check]
+          #  static_configs:
+          #    - targets:
+          #      - https://tu.berlin
+          #      - https://prometheus.io
+          #  relabel_configs:
+          #    - source_labels: [__address__]
+          #      #regex: '^(?:[a-zA-Z]*://)?([^:]+)(?::[\d]*)?'
+          #      target_label: __param_target
+          #    - source_labels: [__param_target]
+          #      target_label: instance
+          #    - target_label: __address__
+          #      replacement: blackbox-exporter:9115
