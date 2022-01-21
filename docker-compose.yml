@@ -23,10 +23,6 @@ services:
       - prom-storage:/prometheus
     networks:
       - monitoring
-    links:
-      - node-exporter
-      - grafana
-      - blackbox-exporter
 
   node-exporter:
     image: prom/node-exporter
