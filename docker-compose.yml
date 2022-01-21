@@ -13,9 +13,8 @@ services:
       - --web.external-url=https://prometheus.${PUBLIC_NAME}
       - --web.route-prefix=/
       - --web.config.file=/etc/prometheus/web.yml
-        #- --web.listen-address=127.0.0.1:9090
-    ports:
-      - "127.0.0.1:9090:9090"
+    expose:
+      - 9090
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
       - ./web.yml:/etc/prometheus/web.yml
@@ -62,8 +61,8 @@ services:
       - GF_USERS_ALLOW_SIGN_UP=false
     volumes:
       - ./datasource-prometheus.yml:/etc/grafana/provisioning/datasources/prometheus.yml:ro
-    ports:
-      - 127.0.0.1:3000:3000
+    expose:
+      - 3000
     networks:
       - monitoring
   
@@ -78,8 +77,8 @@ services:
       - --web.route-prefix=/
     volumes:
       - ./blackbox-config.yml:/etc/blackbox_exporter/config.yml:ro
-    ports:
-      - 127.0.0.1:9115:9115
+    expose:
+      - 9115
     networks:
       - monitoring
     
